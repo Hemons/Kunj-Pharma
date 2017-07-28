@@ -1,0 +1,54 @@
+﻿@model PagedList.IPagedList<PMS.Model.UserListViewModel>
+@using PagedList.Mvc;
+<table class="table">
+    <tr>
+        <th>
+            <label class="control-label">Name</label>
+        </th>
+        <th>
+            <label class="control-label">User Name</label>
+        </th>
+        <th>
+            <label class="control-label">Phone</label>
+        </th>
+        <th>
+            <label class="control-label">Email</label>
+        </th>
+        <th>
+            <label class="control-label">Date of Birth</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Register", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("UserList", new { PageNumber = page, PageSize = 1 }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "UserList" }))

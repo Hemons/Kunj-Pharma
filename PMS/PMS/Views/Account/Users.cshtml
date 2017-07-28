@@ -1,0 +1,16 @@
+﻿@model PagedList.IPagedList<PMS.Model.UserListViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Register")
+</p>
+<div id="UserList">
+    @Html.Partial("_list", Model)
+</div>
